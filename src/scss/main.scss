@@ -42,6 +42,10 @@ p {
 }
 
 /* --------- Common ---------  */
+.hidden {
+    display: none;
+}
+
 .hr {
     border: 0;
     height: 3px;
@@ -181,7 +185,7 @@ p {
     display: grid;
     grid-gap: 50px;
     grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-    /*  align-items: start; */
+    align-items: start;
     justify-content: space-evenly; //center;
     background: $color-prim-dark;
     background: linear-gradient($color-prim-dark, $color-sec-dark, $color-dark);
