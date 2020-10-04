@@ -182,20 +182,26 @@ p {
 
 /* --------- Main ---------  */
 .container {
-    display: grid;
-    grid-gap: 50px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-    align-items: start;
-    justify-content: space-evenly; //center;
     background: $color-prim-dark;
     background: linear-gradient($color-prim-dark, $color-sec-dark, $color-dark);
-    padding: 8vh;
+    padding: 16vh 8vh 4vh 8vh;
+
+    &__inner {
+        display: grid;
+        grid-gap: 50px;
+        grid-template-columns: 1fr 1fr;
+        //align-items: start;
+        // justify-content: center;
+        // justify-items: center;
+        max-width: 1024px;
+        margin: 0 auto;
+    }
 
     &__card {
         background-color: $color-dark;
         padding: 4vh;
         border-radius: 12px;
-        // max-height: 300px;
+        min-width: 300px;
 
         &--prim {
             background-color: $color-prim;
