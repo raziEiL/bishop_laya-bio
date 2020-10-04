@@ -189,7 +189,7 @@ p {
     &__inner {
         display: grid;
         grid-gap: 50px;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(auto-fil, 1fr);
         //align-items: start;
         // justify-content: center;
         // justify-items: center;
@@ -201,7 +201,7 @@ p {
         background-color: $color-dark;
         padding: 4vh;
         border-radius: 12px;
-        min-width: 300px;
+        //  min-width: 300px;
 
         &--prim {
             background-color: $color-prim;

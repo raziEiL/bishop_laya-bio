@@ -14,24 +14,25 @@ const uncss = require('gulp-uncss'); // уберет неиспользуемы�
 const uglify = require('gulp-uglify-es').default; // сжатие js es6 кода
 const cleanCSS = require('gulp-clean-css'); // сжатие CSS кода
 const imagemin = require('gulp-imagemin');
+const htmlmin = require('gulp-htmlmin');
 // Пути
 const ROOT = "./";
-const BUILD = "dist/"
+const DIST = "dist/"
 const SRC = "src/"
 
 const PATH = {
     // готовые файлы после сборки
     build: {
-        css: ROOT + BUILD + "css",
-        js: ROOT + BUILD + "js",
-        img: ROOT + BUILD + "img",
+        css: ROOT + DIST + "css",
+        js: ROOT + DIST + "js",
+        img: ROOT + DIST + "img",
     },
     // пути исходных файлов
     src: {
         css: ROOT + SRC + "scss/**/*.scss",
         js: ROOT + SRC + "js/**/*.js",
         img: ROOT + SRC + "img/*",
-        html: BUILD + "*.html"
+        html: ROOT + SRC + "*.html"
     }
 }
 // \ Пути
@@ -56,30 +57,39 @@ gulp.task("build:img", () => {
         .pipe(gulp.dest(PATH.build.img));
 });
 
-gulp.task("build", gulp.series(['build:sass', 'build:js', "build:img"]));
-gulp.task("build-dev", gulp.series(['build-dev:sass', 'build-dev:js', "build:img"]));
+gulp.task("build:html", () => {
+    return gulp.src(PATH.src.html)
+        .pipe(htmlmin({
+            collapseWhitespace: true,
+            removeComments: true,
+        }))
+        .pipe(gulp.dest(DIST));
+});
+
+gulp.task("build", gulp.series(['build:sass', 'build:js', "build:img", "build:html"]));
+gulp.task("build-dev", gulp.series(['build-dev:sass', 'build-dev:js', "build:img", "build:html"]));
 
 gulp.task('browserSync', gulp.series((done) => {
     browserSync.init({
         watch: true,
-        server: BUILD
+        server: DIST
         // notify: false
     })
     done();
 }));
 
 gulp.task('watch', gulp.series(['browserSync', 'build'], () => {
-    gulp.watch(PATH.src.html, gulp.series(reload));
     gulp.watch(PATH.src.css, gulp.series(['build:sass']));
     gulp.watch(PATH.src.js, gulp.series(['build:js']));
     gulp.watch(PATH.src.img, gulp.series(['build:img']));
+    gulp.watch(PATH.src.html, gulp.series(['build:html']));
 }));
 
 gulp.task('watch-dev', gulp.series(['browserSync', 'build-dev'], () => {
-    gulp.watch(PATH.src.html, gulp.series(reload));
     gulp.watch(PATH.src.css, gulp.series(['build-dev:sass']));
     gulp.watch(PATH.src.js, gulp.series(['build-dev:js']));
     gulp.watch(PATH.src.img, gulp.series(['build-dev:img']));
+    gulp.watch(PATH.src.html, gulp.series(['build:html']));
 }));
 
 function sassCallback(prod = false) {
