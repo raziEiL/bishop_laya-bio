@@ -1,0 +1,20 @@
+@keyframes anime {
+    to {
+        transform: scale(1.15);
+        filter: blur(3px);
+    }
+}
+
+@keyframes beat {
+    to {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes beat2 {
+    to {
+        //transform: scale(1.2);
+        opacity: 0.5;
+        top: 100px;
+    }
+}

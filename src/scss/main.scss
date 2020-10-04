@@ -1,0 +1,241 @@
+$color-prim: #FF3366;
+$color-sec: #33FFB7;
+$color-td: #FF7533;
+$color-prim-dark:#A61136; // 166, 17, 54
+$color-sec-dark: #11A671;
+$color-dark: #111111;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: white;
+    //font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #000;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+    font-family: 'Sansita Swashed', cursive;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    color: white;
+
+    &:hover {
+        color: $color-prim;
+    }
+
+    &:visited {
+        color: $color-prim-dark;
+    }
+}
+
+/* --------- Common ---------  */
+.hr {
+    border: 0;
+    height: 3px;
+    background: $color-prim;
+    background: linear-gradient(90deg, rgba($color-prim, 1), rgba($color-sec, 1) 100%);
+
+    &--light {
+        height: 1px;
+        opacity: 0.7;
+    }
+}
+
+.hrb {
+    border: 0;
+    height: 3px;
+    background: $color-sec;
+    background: linear-gradient(90deg, white, $color-sec);
+}
+
+/* --------- Nav ---------  */
+.nav {
+    background-color: rgba($color-dark, 0.75);
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    top: 0;
+    transition: all 0.6s cubic-bezier(0.32, 0, 0.67, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__item {
+        padding: 6px;
+    }
+
+    &__logo {
+        margin: 0;
+        user-select: none;
+        text-align: center;
+    }
+
+    &__ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+
+        &-li {
+            margin: 0 1.25em 0 0;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    &__link {
+        display: block;
+        font-size: 1.15em;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    &__info {
+        margin: 0;
+        color: $color-td;
+        user-select: none;
+        font-size: 1.15em;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &:hover {
+        background-color: black;
+    }
+}
+
+/* --------- BG ---------  */
+.intro {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    &__bg {
+        height: 100%;
+        width: 100%;
+        background-image: url(../img/nastya.jpg);
+        background-repeat: no-repeat;
+        /* bug: при скорле браузера с background-attachment: fixed; сверху видно body */
+        background-attachment: fixed;
+        background-position: 50% 20%;
+        background-size: cover;
+        animation: anime 8s linear infinite alternate;
+    }
+
+    &__gradient {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0%, 0%, 0.4), rgba($color-prim-dark, 0.4) 85%, $color-prim-dark);
+        position: absolute;
+        bottom: 0;
+    }
+
+    &__container {
+        position: absolute;
+        bottom: 0%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__btn {
+        opacity: 0.5;
+        animation: beat 1.4s infinite alternate;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__arrow::before {
+        content: "";
+        position: relative;
+        right: -44px;
+        top: 76px;
+        opacity: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-top: 20px solid white;
+        animation: beat2 1.8s infinite;
+        transition: all;
+    }
+}
+
+/* --------- Main ---------  */
+.container {
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    /*  align-items: start; */
+    justify-content: space-evenly; //center;
+    background: $color-prim-dark;
+    background: linear-gradient($color-prim-dark, $color-sec-dark, $color-dark);
+    padding: 8vh;
+
+    &__card {
+        background-color: $color-dark;
+        padding: 4vh;
+        border-radius: 12px;
+        // max-height: 300px;
+
+        &--prim {
+            background-color: $color-prim;
+            grid-column: 1 / 3;
+        }
+    }
+
+    &__header {
+        text-align: center;
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+
+        &-img {
+            width: 26px;
+            margin-right: 1em;
+        }
+    }
+
+    &__ul {
+        padding-left: 24px;
+        margin-bottom: 0;
+
+        &-li {
+            margin-bottom: 0.75em;
+
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
+
+    &__tip {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+// Footer
+.author {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+}
+
+footer {
+    background-color: $color-dark;
+}
