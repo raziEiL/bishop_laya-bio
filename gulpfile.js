@@ -9,12 +9,16 @@ const calc = require('postcss-calc');
 const sourcemaps = require('gulp-sourcemaps'); // указывает src файл js/css для инспектора браузров
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
-const uncss = require('gulp-uncss'); // уберет неиспользуемые css классы
+const uncss = require('gulp-uncss'); // уберает неиспользуемые css классы
 // minify js/css
 const uglify = require('gulp-uglify-es').default; // сжатие js es6 кода
 const cleanCSS = require('gulp-clean-css'); // сжатие CSS кода
 const imagemin = require('gulp-imagemin');
 const htmlmin = require('gulp-htmlmin');
+
+// Список css классов (используются для js), которые игнорируются uncss
+const UNCSS_IGNORE = []
+
 // Пути
 const ROOT = "./";
 const DIST = "dist/"
@@ -95,13 +99,14 @@ gulp.task('watch-dev', gulp.series(['browserSync', 'build-dev'], () => {
 function sassCallback(prod = false) {
     if (prod) {
         return gulp.src(PATH.src.css)
-            .pipe(sass().on('error', sass.logError))
+            .pipe(sass({}).on('error', sass.logError))
             .pipe(postcss([autoprefixer(), cssvariables({
                 preserve: true
             }), calc()]))
             .pipe(concat('style.min.css'))
             .pipe(uncss({
-                html: [PATH.src.html /*, ignore: [/\.nav__menu-active/] игнор классов */ ]
+                html: [PATH.src.html],
+                ignore: UNCSS_IGNORE
             }))
             .pipe(cleanCSS())
             .pipe(gulp.dest(PATH.build.css));
@@ -116,7 +121,8 @@ function sassCallback(prod = false) {
         }), calc()]))
         .pipe(concat('style.css'))
         .pipe(uncss({
-            html: [PATH.src.html /*, ignore: [/\.nav__menu-active/] игнор классов */ ]
+            html: [PATH.src.html],
+            ignore: UNCSS_IGNORE
         }))
         .pipe(gulp.dest(PATH.build.css))
         .pipe(rename(function (path) {
