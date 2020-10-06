@@ -18,3 +18,11 @@
         top: 100px;
     }
 }
+
+@keyframes beat3 {
+    to {
+        //transform: scale(1.2);
+        opacity: 0.35;
+        bottom: 4px;
+    }
+}

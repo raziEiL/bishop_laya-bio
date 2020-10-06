@@ -12,7 +12,6 @@ html {
 body {
     margin: 0;
     color: white;
-    //font-family: 'Montserrat', sans-serif;
     font-family: 'Open Sans', sans-serif;
     background-color: #000;
 }
@@ -47,6 +46,14 @@ p {
 
 .hidden {
     display: none;
+
+    &::before {
+        display: none;
+    }
+
+    &::after {
+        display: none;
+    }
 }
 
 .hr {
@@ -76,11 +83,16 @@ p {
     width: 100%;
     top: 0;
     transition: all 0.2s linear;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     //  border-bottom: solid 2px $color-sec;
     box-shadow: 0 3px 3px rgba($color-sec-dark, 0.2);
+
+    &__inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
     &__item {
         padding: 6px;
@@ -138,11 +150,11 @@ p {
     &__bg {
         height: 100%;
         width: 100%;
-        background-image: url(../img/nastya.jpg);
+        background-image: url(../img/pexels-photo-247287.jpeg);
         background-repeat: no-repeat;
         /* bug: при скорле браузера с background-attachment: fixed; сверху видно body */
         background-attachment: fixed;
-        background-position: 50% 20%;
+        background-position: 50% 10%;
         background-size: cover;
         animation: anime 8s linear infinite alternate;
     }
@@ -171,6 +183,7 @@ p {
         }
     }
 
+    /* для класса intro__btn
     &__arrow::before {
         content: "";
         position: relative;
@@ -181,6 +194,18 @@ p {
         border-right: 20px solid transparent;
         border-top: 20px solid white;
         animation: beat2 1.8s infinite;
+        transition: all;
+    } */
+
+    &__arrow::before {
+        content: "";
+        position: relative;
+        bottom: 74px;
+        opacity: 0.1;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        border-top: 30px solid white;
+        animation: beat3 1.8s infinite;
         transition: all;
     }
 }
